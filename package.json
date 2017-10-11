@@ -1,0 +1,25 @@
+{
+  "name": "war_card_game",
+  "version": "1.0.0",
+  "description": "Play the classic card game",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacksondonovan/war_card_game.git"
+  },
+  "author": "Jackson Donovan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacksondonovan/war_card_game/issues"
+  },
+  "homepage": "https://github.com/jacksondonovan/war_card_game#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "path": "^0.12.7"
+  }
+}
