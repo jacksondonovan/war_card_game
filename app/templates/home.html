@@ -1,15 +1,16 @@
 <h4><small>{{title}}</small></h4>
 <hr>
-<h2>WAR!</h2>
+<h2>WAR! - - - {{winner}}</h2>
 <button type="button" ng-click="getcards()">Deal</button>
 
 <button type="button" ng-click="resetdeck()">Reset Deck</button>
 
 <button type="button" ng-click="showwinner()">Flip Card One</button>
 
-<h3>{{winner}}</h3>
 
-<h2>My Stack</h2>
+
+<h2>My Stack   |   Score: {{mywins}}</h2>
+<h4></h4>
 <div class="rowofcards">
   <ul ng-repeat="eachcard in mycards">
     <li>{{eachcard.value}}</li>
@@ -17,7 +18,8 @@
   </ul>
   <br><br>
 </div>
-<h2>Your Stack</h2>
+<h2>Your Stack   |   Score: {{yourwins}}</h2>
+<h4></h4>
 <div class="rowofcards">
   <ul ng-repeat="cardeach in yourcards">
     <li>{{cardeach.value}}</li>

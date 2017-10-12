@@ -19,6 +19,8 @@ var app = angular.module('app',["ngRoute"])
                  })
                  .controller('homeCTRL',function($scope){
                    $scope.title = 'Welcome to War'
+                   $scope.mywins = 0
+                   $scope.yourwins = 0
                    $scope.handvalue = function(card){
                      switch (card) {
                        case 'ACE':
@@ -64,7 +66,8 @@ var app = angular.module('app',["ngRoute"])
                      }
                    }
                    $scope.cards = []
-                   $scope.cardimages = []
+                   $scope.cardimagesmine = []
+                   $scope.cardimagesyours = []
                    $scope.handvalueofmycards = []
                    $scope.handvalueofyourcards = []
                    $scope.getcards = function(){
@@ -74,7 +77,11 @@ var app = angular.module('app',["ngRoute"])
                        reponse.json().then(function(data){
                          console.log(data.cards);
                          for(var i = 0; i < data.cards.length; i++){
-                           $scope.cardimages.push(data.cards[i].image)
+                           if(i < 6){
+                             $scope.cardimagesmine.push(data.cards[i].image)
+                           } else {
+                             $scope.cardimagesyours.push(data.cards[i].image)
+                           }
                            data.cards[i].image = 'https://cdn.shopify.com/s/files/1/0200/7616/products/playing-cards-fournier-505-1_grande.jpg?v=1494194154'
                            $scope.cards.push(data.cards[i])
                          }
@@ -97,19 +104,45 @@ var app = angular.module('app',["ngRoute"])
 
                    $scope.winner
                    $scope.showwinner = function(){
+                     let counter = 0
                      if($scope.handvalueofmycards[0] > $scope.handvalueofyourcards[0]){
-                       $scope.cards[0].image = $scope.cardimages[0]
-                       $scope.cards[6].image = $scope.cardimages[6]
+                       $scope.mycards[0].image = $scope.cardimagesmine[0]
+                       $scope.yourcards[0].image = $scope.cardimagesyours[0]
                        console.log('my card:' , $scope.handvalueofmycards[0]);
                        console.log('your card:' , $scope.handvalueofyourcards[0]);
-                       console.log($scope.cardimages[0]);
-                       $scope.winner = 'I win the first round!'
+                       $scope.mywins++
+                       $scope.winner = 'I win this round!'
+                       setInterval(function(){
+                         if(counter === 0){
+                           $scope.mycards.shift()
+                           $scope.yourcards.shift()
+                           $scope.cardimagesmine.shift()
+                           $scope.cardimagesyours.shift()
+                           $scope.handvalueofmycards.shift()
+                           $scope.handvalueofyourcards.shift()
+                         }
+                         counter++;
+                       }, 3000)
+
                      } else {
-                       $scope.cards[0].image = $scope.cardimages[0]
-                       $scope.cards[6].image = $scope.cardimages[6]
+                       $scope.mycards[0].image = $scope.cardimagesmine[0]
+                       $scope.yourcards[0].image = $scope.cardimagesyours[0]
                        console.log('my card:' , $scope.handvalueofmycards[0]);
                        console.log('your card:' , $scope.handvalueofyourcards[0]);
-                       $scope.winner = 'You win the first round!'
+                       $scope.yourwins++
+                       $scope.winner = 'You win this round!'
+                       setInterval(function(){
+                         if(counter === 0){
+                           $scope.mycards.shift()
+                           $scope.yourcards.shift()
+                           $scope.cardimagesmine.shift()
+                           $scope.cardimagesyours.shift()
+                           $scope.handvalueofmycards.shift()
+                           $scope.handvalueofyourcards.shift()
+                         }
+                         counter++
+                       }, 3000)
+
                      }
                    }
                    $scope.resetdeck = function(){
@@ -119,7 +152,11 @@ var app = angular.module('app',["ngRoute"])
                      $scope.handvalueofyourcards = []
                      $scope.mycards = []
                      $scope.yourcards = []
+                     $scope.cardimagesmine = []
+                     $scope.cardimagesyours = []
                      $scope.winner = ''
+                     $scope.mywins = 0
+                     $scope.yourwins = 0;
                    }
                  })
                  .controller('aboutCTRL',function($scope){
