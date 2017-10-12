@@ -158,6 +158,7 @@ var app = angular.module('app',["ngRoute"])
                        }, 3000)
 
                      }
+                     $scope.counter = 0
                    }
                    $scope.resetdeck = function(){
                      $scope.cards = []
