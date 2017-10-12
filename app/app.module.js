@@ -71,13 +71,13 @@ var app = angular.module('app',["ngRoute"])
                    $scope.handvalueofmycards = []
                    $scope.handvalueofyourcards = []
                    $scope.getcards = function(){
-                     fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=12')
+                     fetch('https://deckofcardsapi.com/api/deck/new/draw/?count=14')
                      .then(function(reponse){
                        console.log('status:',reponse.status);
                        reponse.json().then(function(data){
                          console.log(data.cards);
                          for(var i = 0; i < data.cards.length; i++){
-                           if(i < 6){
+                           if(i < 7){
                              $scope.cardimagesmine.push(data.cards[i].image)
                            } else {
                              $scope.cardimagesyours.push(data.cards[i].image)
@@ -90,11 +90,11 @@ var app = angular.module('app',["ngRoute"])
                      })
                      $scope.mycards = []
                      $scope.yourcards = []
-                     for(let i = 0; i <= 5; i++){
+                     for(let i = 0; i <= 6; i++){
                        $scope.mycards.push($scope.cards[i])
                        $scope.handvalueofmycards.push($scope.handvalue($scope.cards[i].value))
                      }
-                     for(let i = 6; i <= 11; i++){
+                     for(let i = 7; i <= 13; i++){
                        $scope.yourcards.push($scope.cards[i])
                        $scope.handvalueofyourcards.push($scope.handvalue($scope.cards[i].value))
                      }
@@ -104,7 +104,7 @@ var app = angular.module('app',["ngRoute"])
 
                    $scope.winner
                    $scope.showwinner = function(){
-                     let counter = 0
+                     $scope.counter = 0
                      if($scope.handvalueofmycards[0] > $scope.handvalueofyourcards[0]){
                        $scope.mycards[0].image = $scope.cardimagesmine[0]
                        $scope.yourcards[0].image = $scope.cardimagesyours[0]
@@ -113,15 +113,22 @@ var app = angular.module('app',["ngRoute"])
                        $scope.mywins++
                        $scope.winner = 'I win this round!'
                        setInterval(function(){
-                         if(counter === 0){
+                         if($scope.counter === 0){
                            $scope.mycards.shift()
                            $scope.yourcards.shift()
                            $scope.cardimagesmine.shift()
                            $scope.cardimagesyours.shift()
                            $scope.handvalueofmycards.shift()
                            $scope.handvalueofyourcards.shift()
+                           if($scope.handvalueofmycards.length === 0){
+                             if($scope.yourwins > $scope.mywins){
+                               $scope.title = 'YOU WIN!'
+                             } else {
+                               $scope.title = 'YOU LOSE!'
+                             }
+                           }
                          }
-                         counter++;
+                         $scope.counter++;
                        }, 3000)
 
                      } else {
@@ -132,15 +139,22 @@ var app = angular.module('app',["ngRoute"])
                        $scope.yourwins++
                        $scope.winner = 'You win this round!'
                        setInterval(function(){
-                         if(counter === 0){
+                         if($scope.counter === 0){
                            $scope.mycards.shift()
                            $scope.yourcards.shift()
                            $scope.cardimagesmine.shift()
                            $scope.cardimagesyours.shift()
                            $scope.handvalueofmycards.shift()
                            $scope.handvalueofyourcards.shift()
+                           if($scope.handvalueofmycards.length === 0){
+                             if($scope.yourwins > $scope.mywins){
+                               $scope.title = 'YOU WIN!'
+                             } else {
+                               $scope.title = 'YOU LOSE!'
+                             }
+                           }
                          }
-                         counter++
+                         $scope.counter++
                        }, 3000)
 
                      }
@@ -157,6 +171,8 @@ var app = angular.module('app',["ngRoute"])
                      $scope.winner = ''
                      $scope.mywins = 0
                      $scope.yourwins = 0;
+                     $scope.counter = 0;
+                     $scope.title = 'Welcome to War'
                    }
                  })
                  .controller('aboutCTRL',function($scope){
