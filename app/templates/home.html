@@ -13,7 +13,11 @@
 
 
 <h2>My Stack   |   Score: {{mywins}}</h2>
-<h4></h4>
+<h4>Cards Earned This Round: </h4>
+<span ng-repeat="item in myroundearnings">
+  <img style="width:30px;height:35px;" src="{{item.image}}" alt="">
+</span>
+
 <div class="rowofcards">
   <ul ng-repeat="eachcard in mycards">
     <li>{{eachcard.value}}</li>
@@ -22,7 +26,10 @@
   <br><br>
 </div>
 <h2>Your Stack   |   Score: {{yourwins}}</h2>
-<h4></h4>
+<h4>Cards Earned This Round: </h4>
+<span ng-repeat="items in yourroundearnings">
+  <img style="width:30px;height:35px;" src="{{items.image}}" alt="">
+</span>
 <div class="rowofcards">
   <ul ng-repeat="cardeach in yourcards">
     <li>{{cardeach.value}}</li>

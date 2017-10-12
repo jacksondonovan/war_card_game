@@ -68,6 +68,8 @@ var app = angular.module('app',["ngRoute"])
                    $scope.cards = []
                    $scope.cardimagesmine = []
                    $scope.cardimagesyours = []
+                   $scope.myroundearnings = []
+                   $scope.yourroundearnings = []
                    $scope.handvalueofmycards = []
                    $scope.handvalueofyourcards = []
                    $scope.getcards = function(){
@@ -75,7 +77,6 @@ var app = angular.module('app',["ngRoute"])
                      .then(function(reponse){
                        console.log('status:',reponse.status);
                        reponse.json().then(function(data){
-                         console.log(data.cards);
                          for(var i = 0; i < data.cards.length; i++){
                            if(i < 7){
                              $scope.cardimagesmine.push(data.cards[i].image)
@@ -98,7 +99,6 @@ var app = angular.module('app',["ngRoute"])
                        $scope.yourcards.push($scope.cards[i])
                        $scope.handvalueofyourcards.push($scope.handvalue($scope.cards[i].value))
                      }
-                     console.log($scope.handvalueofmycards);
 
                    }
 
@@ -111,6 +111,8 @@ var app = angular.module('app',["ngRoute"])
                        console.log('my card:' , $scope.handvalueofmycards[0]);
                        console.log('your card:' , $scope.handvalueofyourcards[0]);
                        $scope.mywins++
+                       $scope.myroundearnings.push($scope.mycards[0])
+                       $scope.myroundearnings.push($scope.yourcards[0])
                        $scope.winner = 'I win this round!'
                        setInterval(function(){
                          if($scope.counter === 0){
@@ -137,6 +139,8 @@ var app = angular.module('app',["ngRoute"])
                        console.log('my card:' , $scope.handvalueofmycards[0]);
                        console.log('your card:' , $scope.handvalueofyourcards[0]);
                        $scope.yourwins++
+                       $scope.yourroundearnings.push($scope.mycards[0])
+                       $scope.yourroundearnings.push($scope.yourcards[0])
                        $scope.winner = 'You win this round!'
                        setInterval(function(){
                          if($scope.counter === 0){
@@ -159,12 +163,16 @@ var app = angular.module('app',["ngRoute"])
 
                      }
                      $scope.counter = 0
+                     console.log('my earnings:' , $scope.myroundearnings);
+                     console.log('your earnings:' , $scope.yourroundearnings);
                    }
                    $scope.resetdeck = function(){
                      $scope.cards = []
                      $scope.cardimages = []
                      $scope.handvalueofmycards = []
                      $scope.handvalueofyourcards = []
+                     $scope.myroundearnings = []
+                     $scope.yourroundearnings = []
                      $scope.mycards = []
                      $scope.yourcards = []
                      $scope.cardimagesmine = []
