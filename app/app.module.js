@@ -79,31 +79,34 @@ var app = angular.module('app',["ngRoute"])
                            $scope.cards.push(data.cards[i])
                          }
                        })
+                       console.log($scope.cardimages);
                      })
                      $scope.mycards = []
                      $scope.yourcards = []
-                     for(let i = 1; i <= 6; i++){
+                     for(let i = 0; i <= 5; i++){
                        $scope.mycards.push($scope.cards[i])
                        $scope.handvalueofmycards.push($scope.handvalue($scope.cards[i].value))
                      }
-                     for(let i = 7; i <= 12; i++){
+                     for(let i = 6; i <= 11; i++){
                        $scope.yourcards.push($scope.cards[i])
                        $scope.handvalueofyourcards.push($scope.handvalue($scope.cards[i].value))
                      }
                      console.log($scope.handvalueofmycards);
+
                    }
-                   console.log($scope.handvalueofmycards);
-                   console.log($scope.handvalueofmycards[0]);
+
                    $scope.winner
                    $scope.showwinner = function(){
                      if($scope.handvalueofmycards[0] > $scope.handvalueofyourcards[0]){
                        $scope.cards[0].image = $scope.cardimages[0]
+                       $scope.cards[6].image = $scope.cardimages[6]
                        console.log('my card:' , $scope.handvalueofmycards[0]);
                        console.log('your card:' , $scope.handvalueofyourcards[0]);
                        console.log($scope.cardimages[0]);
                        $scope.winner = 'I win the first round!'
                      } else {
-                       $scope.cards[7].image = $scope.cardimages[7]
+                       $scope.cards[0].image = $scope.cardimages[0]
+                       $scope.cards[6].image = $scope.cardimages[6]
                        console.log('my card:' , $scope.handvalueofmycards[0]);
                        console.log('your card:' , $scope.handvalueofyourcards[0]);
                        $scope.winner = 'You win the first round!'
@@ -111,6 +114,7 @@ var app = angular.module('app',["ngRoute"])
                    }
                    $scope.resetdeck = function(){
                      $scope.cards = []
+                     $scope.cardimages = []
                      $scope.handvalueofmycards = []
                      $scope.handvalueofyourcards = []
                      $scope.mycards = []
